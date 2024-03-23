@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+  </head>
+  <body>
+    <form onsubmit="handleFormSubmit(event)">
+      <label for="amount">Expense Amount: </label>
+      <input type="text" name="amount" id="amount" />
+      <label for="description">Description: </label>
+      <input type="text" name="description" id="description" />
+
+      <label for="category">Category: </label>
+      <select name="category" id="category">
+        <option >Movie</option>
+        <option >Fuel</option>
+        <option >Groceries</option>
+        <option >cloths</option>
+      </select>
+      <button type="submit">Add Expense</button>
+    </form>
+
+    <!-- Add Unordered List Element Here -->
+    <ul id="expenseList">
+    </ul>
+  </body>
+
+  <script src="index.js"></script>
+</html>
