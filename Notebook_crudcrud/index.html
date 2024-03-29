@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NoteBook</title>
+  </head>
+  <body>
+    <div style="text-align: center;">
+      <h1>NoteBook</h1>
+      <label for="search">Search</label>
+      <input type="text" name="search" id="search">
+      <p>Total Notes:</p>
+      <p>Showing:</p>
+    </div>
+    <div>
+      <form onsubmit="handleFormSubmit(event)">
+        <label for="title">Note Title:</label><br>
+        <input type="text" name="title" id="title" /><br>
+        <label for="description">Note Description:</label><br>
+        <textarea name="description" id="description" rows="4" cols="50"></textarea><br>
+        <button type="submit">Add Note</button>
+      </form>
+    </div>
+    <ul id="noteList"></ul>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.1/axios.min.js"></script>
+  <script src="index.js"></script>
+</html>
