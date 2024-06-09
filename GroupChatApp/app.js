@@ -1,33 +1,3 @@
-// const express = require("express");
-// const bodyParser = require("body-parser");
-
-// const app = express();
-
-// app.use(bodyParser.urlencoded({extended:false}))
-// const port = 3000;
-
-// app.get('/login', (req,res,next)=>{
-//     console.log("This response is from GET:/login");
-//     res.send(`<form action="/" method="GET">
-//         <input type="text" name="username">
-//         <button type="submit">Login</button>
-//         </form>`)
-// })
-
-// app.get("/", (req,res,next)=>{
-//     console.log("This response is from GET:/");
-//     const username = req.body.username;
-//     const name = localStorage.setItem("username", username);
-//     res.send(`<form action="/" method="GET">
-//         <input type="text" name="message">
-//         <button type="submit">Send</button>
-//         </form>`)
-// })
-
-// app.listen(port, ()=>{
-//     console.log(`app is running on port: ${port}`)
-// })
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
