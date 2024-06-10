@@ -1,23 +1,23 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+const path = require('path');
+
+const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
 
-const adminRoute = require("./routes/admin.js");
-const shopRoute = require("./routes/shop.js");
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
+const contactRoute = require('./routes/contactUs');
 
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/admin', adminRoutes);
+app.use(shopRoutes);
+app.use(contactRoute);
 
-// app.use((req, res, next) => {
-//   console.log("1st middleware!");
-//   next();
-// });
-app.use('/admin', adminRoute);
-app.use('/shop' ,shopRoute);
-
-app.use((req,res)=>{
-    res.status(404).send(`<h1>Page not found.</h1>`)
-})
+app.use((req, res, next) => {
+    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+});
 
 app.listen(3000);
