@@ -1,1 +1,23 @@
-[{"id":"123245","title":"A Book","imageUrl":"https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg","description":"This is an awesome book!","price":"19"},{"id":"0.41607315815753076","title":"t shirt","imageUrl":"fdasfs","description":"fadsfads","price":"12"},{"id":"0.9272017927505716","title":"Shoes","imageUrl":"https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg","description":"This is a latest shoe model!","price":"400"}]
+[
+  {
+    "id": "123245",
+    "title": "A Book",
+    "imageUrl": "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg",
+    "description": "This is an awesome book!",
+    "price": "19"
+  },
+  {
+    "id": "0.41607315815753076",
+    "title": "t shirt",
+    "imageUrl": "fdasfs",
+    "description": "fadsfads",
+    "price": "12"
+  },
+  {
+    "id": "0.9272017927505716",
+    "title": "Shoes",
+    "imageUrl": "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg",
+    "description": "This is a latest shoe model!",
+    "price": "400"
+  }
+]
