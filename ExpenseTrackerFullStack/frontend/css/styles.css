@@ -1,0 +1,39 @@
+body{
+    background-color:lightblue;
+}
+
+      .sign-up{
+          text-align: center;
+          margin: 10% 20% 20% 20% ;
+          display: flexbox;
+          
+      }
+      .sign-up h1{
+        font-family: sans-serif;
+        font-size: 40px;
+        color: rgb(15, 109, 104);
+      }
+
+      .sign-up label{
+        margin-top: 10px;
+        font-family: sans-serif;
+        font-size: 20px;
+        text-align: left;
+        color: rgb(15, 109, 104);
+      }
+
+      .sign-up input{
+        font-family: sans-serif;
+        font-size: 25px;
+        border: none;
+        border-radius: 10px;
+      }
+      .sign-up button{
+        margin-top: 15px;
+        font-family: sans-serif;
+        font-size: 20px;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        color: rgb(15, 109, 104);
+      }
