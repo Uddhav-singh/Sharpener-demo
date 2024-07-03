@@ -9,7 +9,7 @@ const User = sequelize.define('user', {
         allowNull: false,
         primaryKey: true
     },
-    name:{
+    username:{
         type: Sequelize.STRING,
         allowNull:false,
     },
@@ -22,6 +22,11 @@ const User = sequelize.define('user', {
         type: Sequelize.STRING,
         allowNull:false
     }
-});
+},
+    {
+        tableName:'users',
+        timestamps: true  // This is enabled by default
+      }
+);
 
 module.exports = User;

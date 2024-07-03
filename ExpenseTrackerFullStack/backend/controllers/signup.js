@@ -9,10 +9,10 @@ const signUp = (req, res) => {
         username,
         email,
         password,
-    }).then(result => {
-        // console.log(result);
-        console.log('Created Product');
-        res.redirect('/admin/products');
+    }).then(() => {
+        
+        console.log('registered user');
+        res.send('user is created');
       })
       .catch(err => {
         console.log(err);
