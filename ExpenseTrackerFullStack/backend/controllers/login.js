@@ -13,10 +13,10 @@ const logIn = async (req, res) => {
     if (userPassword) {
       res.send('"welcome to the expense tracker app."');
     } else {
-      res.send("Incorrect Password Try again with right password.");
+      res.status(401).send("Incorrect Password Try again with right password.");
     }
   } else {
-    res.send("User does not exist");
+    res.status(404).send("User does not exist");
   }
 };
 
