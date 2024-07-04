@@ -1,22 +1,21 @@
 const { where } = require("sequelize");
 const User = require("../models/user");
+const bcrypt = require("bcrypt");
 
 const logIn = async (req, res) => {
-  // const username = req.body.username;
-  const email = req.body.email;
-  const password = req.body.password;
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
 
-  const userEmail = await User.findOne({ where: { email: email } });
-  const userPassword = await User.findOne({ where: { password: password } });
+    const userEmail = await User.findOne({ where: { email: email } });
 
-  if (userEmail) {
-    if (userPassword) {
-      res.send('"welcome to the expense tracker app."');
+    if (userEmail && (await bcrypt.compare(password, userEmail.password))) {
+      res.send("You have logged in.");
     } else {
-      res.status(401).send("Incorrect Password Try again with right password.");
+      res.status(401).json({ message: "Invalid email or password" });
     }
-  } else {
-    res.status(404).send("User does not exist");
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
