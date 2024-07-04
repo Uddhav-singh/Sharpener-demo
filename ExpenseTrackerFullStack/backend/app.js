@@ -14,10 +14,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 const signUpRouter = require('./routes/signUpRoute');
+const logInRouter = require('./routes/logInRoute');
 
 
 
 app.use(signUpRouter);
+app.use(logInRouter);
 
 const PORT = 3000;
 
