@@ -9,6 +9,19 @@
     
   </head>
   <body>
+    <header>
+      <nav>
+        <div class="nav-left">
+          <img src="../images/logo.svg" alt="Logo" />
+        </div>
+        <div class="nav-right">
+          <a href="login.html">Login</a>
+          <!-- <a href="signup.html">Signup</a> -->
+          <a href="aboutUs.html">About Us</a>
+        </div>
+      </nav>
+      
+    </header>
     
     <form id="signupForm">
       <div class="sign-up">
@@ -36,12 +49,15 @@
 
       
         try {
-            await axios.post("http://localhost:3000/users", {
+            await axios.post("http://localhost:3000/user/signup", {
               username,
               email,
               password,
             });
+            alert('User registered successfully');
+            window.location.href = 'login.html';
       } catch (error) {
+        alert('User already exists');
         console.log('there is error in posting data'+ error)
       }
     })
