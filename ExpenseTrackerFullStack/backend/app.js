@@ -42,8 +42,12 @@ app.get('/dashboard.html', (req, res) => {
 });
 
 const PORT = 3000;
+// Make sure to initialize associations
+User.associate({ Expense });
+Expense.associate({ User });
 
-sequelize.sync().then(()=>{
+
+sequelize.sync({ force: false }).then(()=>{
     console.log('database is in sync');
     app.listen(PORT)
 })

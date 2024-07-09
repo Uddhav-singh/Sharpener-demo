@@ -37,11 +37,18 @@
           const category = document.getElementById("category").value;
 
           try {
-            await axios.post("http://localhost:3000/user/expenses", {
-              amount,
-              description,
-              category,
-            });
+            const token = localStorage.getItem("token");
+            await axios.post(
+              "http://localhost:3000/user/expenses",
+              {
+                amount,
+                description,
+                category,
+              },
+              {
+                headers: { "x-auth-token": token },
+              }
+            );
             loadExpense();
           } catch (error) {
             console.error("error in posting data from line 47 " + error);
@@ -50,21 +57,27 @@
 
       async function loadExpense() {
         try {
-          const response = await axios.get("http://localhost:3000/user/expenses");
+          const token = localStorage.getItem("token");
+          const response = await axios.get(
+            "http://localhost:3000/user/expenses",
+            {
+              headers: { "x-auth-token": token },
+            }
+          );
           const expenses = response.data;
 
           const expenseList = document.getElementById("expenseList");
           expenseList.innerHTML = "";
-          expenses.forEach(expense => {
+          expenses.forEach((expense) => {
             const listItem = document.createElement("li");
             listItem.textContent = `${expense.amount} - ${expense.description} - ${expense.category}`;
             expenseList.appendChild(listItem);
-            const editBtn = document.createElement('button');
-            editBtn.textContent="Edit";
+            const editBtn = document.createElement("button");
+            editBtn.textContent = "Edit";
             expenseList.appendChild(editBtn);
-            const deleteBtn = document.createElement('button');
-            deleteBtn.textContent = 'Delete';
-            expenseList.appendChild(deleteBtn)
+            const deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "Delete";
+            expenseList.appendChild(deleteBtn);
           });
         } catch (error) {
           console.error(error);

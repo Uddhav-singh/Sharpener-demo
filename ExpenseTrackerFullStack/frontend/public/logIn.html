@@ -57,11 +57,14 @@
   // }
   try {
         const response = await axios.post('http://localhost:3000/user/login', { email, password });
-        if (response.data.message === 'Login successful') {
-            window.location.href = 'dashboard.html';
-        } else {
-            alert('Login failed');
-        }
+        // if (response.data.message === 'Login successful') {
+        //     window.location.href = 'dashboard.html';
+        // } else {
+        //     alert('Login failed');
+        // }
+        const { token } = response.data;
+        localStorage.setItem('token', token);
+        window.location.href = 'dashboard.html';
     } catch (error) {
         alert('Error logging in');
         console.error(error);
