@@ -26,8 +26,7 @@
     <form id="loginForm">
       <div class="sign-up">
         <h1>Log In</h1>
-        <!-- <label for="username">Name</label><br />
-        <input type="text" name="username" id="username" required /><br /> -->
+       
       
         <label for="email">Email</label><br />
         <input type="text" name="email" id="email" required /><br />
@@ -48,20 +47,9 @@
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
-  // try {
-  //   const response = await axios.post('http://localhost:3000/user/login', { username, password });
-  //   localStorage.setItem('token', response.data.token);
-  //   window.location.href = 'home.html';
-  // } catch (error) {
-  //   alert('Invalid credentials');
-  // }
   try {
         const response = await axios.post('http://localhost:3000/user/login', { email, password });
-        // if (response.data.message === 'Login successful') {
-        //     window.location.href = 'dashboard.html';
-        // } else {
-        //     alert('Login failed');
-        // }
+        
         const { token } = response.data;
         localStorage.setItem('token', token);
         window.location.href = 'dashboard.html';
