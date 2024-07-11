@@ -17,6 +17,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 const signUpRouter = require('./routes/signUpRoute');
 const logInRouter = require('./routes/logInRoute');
 const userExpenseRouter = require('./routes/userExpense');
+const paymentRoutes = require('./routes/payment');
+const isPrimiumUser = require('./routes/user');
 
 // Serve static files from the "frontend/public" directory
 // app.use(express.static(path.join(__dirname, '../frontend')));
@@ -29,9 +31,13 @@ app.use('/images', express.static(path.join(__dirname, '../frontend/images')));
 
 
 // app.use('/user', userRoutes);
+
 app.use('/user',signUpRouter);
 app.use('/user',logInRouter);
 app.use('/user',userExpenseRouter);
+
+app.use('/api/payment', paymentRoutes);
+app.use('/api/user', isPrimiumUser);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/public/home.html'));
@@ -43,8 +49,8 @@ app.get('/dashboard.html', (req, res) => {
 
 const PORT = 3000;
 // Make sure to initialize associations
-User.associate({ Expense });
-Expense.associate({ User });
+// User.associate({ Expense });
+// Expense.associate({ User });
 
 
 sequelize.sync({ force: false }).then(()=>{

@@ -24,6 +24,13 @@ const Expense = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    userId: {
+      type: Sequelize.INTEGER,
+      references: {
+          model: 'Users',
+          key: 'id'
+      }
+    }
   },
   {
     tableName: "expenses",
@@ -36,9 +43,13 @@ const Expense = sequelize.define(
 //   .then(() => {
 //     console.log("Database is created");
 //   });
+
+
 // Define associations
-Expense.associate = (models) => {
-  Expense.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
-};
+// Expense.associate = (models) => {
+//   Expense.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+// };
+User.hasMany(Expense, { foreignKey: 'userId', as: 'expenses' });
+Expense.belongsTo(User, { foreignKey: 'userId' });
 
 module.exports = Expense;

@@ -24,6 +24,11 @@ const User = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    // New field
+    isPremiumUser: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+    }
   },
   {
     tableName: "users",
@@ -35,13 +40,13 @@ User.prototype.generateAuthToken = function () {
   const token = jwt.sign(
     { id: this.id, email: this.email },
     "secret_key",
-    // { expiresIn: "1h" }
+    { expiresIn: "1h" }
   );
   return token;
 };
 
-User.associate = (models) => {
-  User.hasMany(models.Expense, { foreignKey: "userId", as: "expenses" });
-};
+// User.associate = (models) => {
+//   User.hasMany(models.Expense, { foreignKey: "userId", as: "expenses" });
+// };
 
 module.exports = User;

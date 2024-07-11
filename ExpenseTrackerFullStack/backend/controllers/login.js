@@ -1,6 +1,7 @@
-// const { where } = require("sequelize");
+
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 const path = require('path')
 
 const logIn = async (req, res) => {
@@ -15,9 +16,9 @@ const logIn = async (req, res) => {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
         const token = user.generateAuthToken();
-        res.status(200).json({ token });
+        res.status(200).send({ token });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 };
 

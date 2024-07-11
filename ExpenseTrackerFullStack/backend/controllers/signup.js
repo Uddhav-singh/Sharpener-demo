@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+// const jwt = require('jsonwebtoken');
 
 const signUp = async (req, res) => {
   try {
@@ -21,7 +22,7 @@ const signUp = async (req, res) => {
       password: hashedPassword,
     });
     const token = user.generateAuthToken();
-    res.status(201).json({ token });
+    res.status(201).send({ token });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server error", error: error.message });
