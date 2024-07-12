@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../config/userdb");
 const jwt = require("jsonwebtoken");
+// const Expense = require('./expense');
 
 const User = sequelize.define(
   "user",
@@ -26,9 +27,9 @@ const User = sequelize.define(
     },
     // New field
     isPremiumUser: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-    }
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+    },
   },
   {
     tableName: "users",
@@ -37,16 +38,10 @@ const User = sequelize.define(
 );
 
 User.prototype.generateAuthToken = function () {
-  const token = jwt.sign(
-    { id: this.id, email: this.email },
-    "secret_key",
-    { expiresIn: "1h" }
-  );
+  const token = jwt.sign({ id: this.id, email: this.email }, "secret_key", {
+    expiresIn: "1h",
+  });
   return token;
 };
-
-// User.associate = (models) => {
-//   User.hasMany(models.Expense, { foreignKey: "userId", as: "expenses" });
-// };
 
 module.exports = User;
