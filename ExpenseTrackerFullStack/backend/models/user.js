@@ -30,6 +30,10 @@ const User = sequelize.define(
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
+    totalExpense: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    }
   },
   {
     tableName: "users",

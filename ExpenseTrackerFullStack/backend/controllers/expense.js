@@ -15,6 +15,10 @@ const addExpense = async (req, res) => {
       userId,
     });
 
+    // Update user's totalExpense
+    const user = await User.findByPk(userId);
+    user.totalExpense += expense.amount;
+    await user.save();
     res.send(expense);
   } catch (error) {
     res.status(500).send("Server error");
@@ -33,15 +37,43 @@ const getExpenses = async (req, res) => {
   }
 };
 
-const deleteExpense = async (req, res) => {
-  try {
-    const userId = req.user.id; // Authenticated user ID
-    const expenseId = req.params.id;
+// const deleteExpense = async (req, res) => {
+//   try {
+//     const userId = req.user.id; // Authenticated user ID
+//     const expenseId = req.params.id;
 
-    await Expense.destroy({ where: { id: expenseId, userId } });
-    res.send({ message: "Expense deleted successfully" });
-  } catch (error) {
-    res.status(500).send("server error deleteExpense Controller");
-  }
+//     await Expense.destroy({ where: { id: expenseId, userId } });
+//     res.send({ message: "Expense deleted successfully" });
+//   } catch (error) {
+//     res.status(500).send("server error deleteExpense Controller");
+//   }
+// };
+
+const deleteExpense = async (req, res) => {
+    const { expenseId } = req.params;
+
+    try {
+        const expense = await Expense.findByPk(expenseId);
+
+        if (!expense) {
+            return res.status(404).json({ msg: 'Expense not found' });
+        }
+
+        const userId = req.user.id;
+
+        // Update user's totalExpense
+        const user = await User.findByPk(userId);
+        user.totalExpense -= expense.amount;
+        await user.save();
+
+        await expense.destroy();
+
+        res.send('Expense deleted');
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
 };
+
 module.exports = { addExpense, getExpenses, deleteExpense };
+
+// module.exports = { addExpense, getExpenses, deleteExpense };

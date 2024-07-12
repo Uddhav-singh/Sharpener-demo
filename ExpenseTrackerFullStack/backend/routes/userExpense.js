@@ -9,6 +9,6 @@ const { addExpense, getExpenses, deleteExpense } = require('../controllers/expen
 console.log(addExpense, getExpenses)
 router.post('/expenses', authMiddleware, addExpense);
 router.get('/expenses', authMiddleware, getExpenses);
-router.delete('/expenses/:id', authMiddleware, deleteExpense);
+router.delete('/expenses/:expenseId', authMiddleware, deleteExpense);
 
 module.exports = router;

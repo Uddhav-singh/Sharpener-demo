@@ -172,9 +172,15 @@ document.getElementById("leaderBoard").addEventListener("click", async () => {
     const leaderboardElement = document.getElementById("leaderboardList");
     // leaderboardElement.innerHTML = ''; // Clear previous entries
 
+    // leaderboard.forEach((user) => {
+    //   const listItem = document.createElement("li");
+    //   listItem.textContent = `${user.username}: ${user.totalExpenses}`;
+    //   leaderboardElement.appendChild(listItem);
+    // });
+
     leaderboard.forEach((user) => {
       const listItem = document.createElement("li");
-      listItem.textContent = `${user.username}: ${user.totalExpenses}`;
+      listItem.textContent = `${user.username}: ${user.totalExpense}`;
       leaderboardElement.appendChild(listItem);
     });
   } catch (error) {
