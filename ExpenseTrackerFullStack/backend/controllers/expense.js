@@ -5,24 +5,44 @@ const User = require("../models/user");
 const addExpense = async (req, res) => {
   const { amount, description, category } = req.body;
 
+  // try {
+  //   const userId = req.user.id; // Authenticated user ID
+
+  //   const expense = await Expense.create({
+  //     amount,
+  //     description,
+  //     category,
+  //     userId,
+  //   });
+
+  //   // Update user's totalExpense
+  //   const user = await User.findByPk(userId);
+  //   user.totalExpense += expense.amount;
+  //   await user.save();
+  //   res.send(expense);
+  // } catch (error) {
+  //   res.status(500).send("Server error");
+  // }
   try {
-    const userId = req.user.id; // Authenticated user ID
+    const userId = req.user.id;
 
     const expense = await Expense.create({
-      amount,
-      description,
-      category,
-      userId,
+        amount,
+        description,
+        category,
+        userId,
     });
 
+    // Calculate totalExpense
+    const totalExpense = await Expense.sum('amount', { where: { userId } });
+
     // Update user's totalExpense
-    const user = await User.findByPk(userId);
-    user.totalExpense += expense.amount;
-    await user.save();
+    await User.update({ totalExpense }, { where: { id: userId } });
+
     res.send(expense);
-  } catch (error) {
-    res.status(500).send("Server error");
-  }
+} catch (error) {
+    res.status(500).send('Server error');
+}
 };
 
 const getExpenses = async (req, res) => {
