@@ -136,6 +136,29 @@ document.getElementById('buyPremiumBtn').addEventListener('click', async () => {
   }
 });
 
+
+// Premium show leaderboard
+document.getElementById('leaderBoard').addEventListener('click', async()=>{
+    try{
+    const response = axios.get('http://localhost:3000/premium/showleaderboard', {
+        headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json',
+        },
+    });
+    const leaderBoardData = response.data;
+    console.log(leaderBoardData);
+    const leaderBoardList = document.createElement('ul');
+    leaderBoardData.forEach((user)=>{
+        const listItem = document.createElement('li');
+        listItem.textContent = `${user.name} - ${user.totalExpenses}`;
+        leaderBoardList.appendChild(listItem)
+   
+    }) } catch(error){
+        console.error('Error fetching leaderboard:', error);
+    }
+})
+
 // Check if the user is a premium user on page load
 window.onload = async function() {
   const token = localStorage.getItem('token');

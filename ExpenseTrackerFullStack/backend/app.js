@@ -19,6 +19,7 @@ const logInRouter = require('./routes/logInRoute');
 const userExpenseRouter = require('./routes/userExpense');
 const paymentRoutes = require('./routes/payment');
 const isPrimiumUser = require('./routes/user');
+const premiumRoute = require('./routes/premiumRoute')
 
 // Serve static files from the "frontend/public" directory
 // app.use(express.static(path.join(__dirname, '../frontend')));
@@ -38,6 +39,7 @@ app.use('/user',userExpenseRouter);
 
 app.use('/api/payment', paymentRoutes);
 app.use('/api/user', isPrimiumUser);
+app.use('/premium', premiumRoute);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/public/home.html'));
