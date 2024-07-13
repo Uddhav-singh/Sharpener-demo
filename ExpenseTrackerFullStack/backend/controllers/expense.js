@@ -1,28 +1,11 @@
 const { where } = require("sequelize");
 const Expense = require("../models/expense");
 const User = require("../models/user");
+const sequelize = require("../config/userdb");
 
 const addExpense = async (req, res) => {
   const { amount, description, category } = req.body;
-
-  // try {
-  //   const userId = req.user.id; // Authenticated user ID
-
-  //   const expense = await Expense.create({
-  //     amount,
-  //     description,
-  //     category,
-  //     userId,
-  //   });
-
-  //   // Update user's totalExpense
-  //   const user = await User.findByPk(userId);
-  //   user.totalExpense += expense.amount;
-  //   await user.save();
-  //   res.send(expense);
-  // } catch (error) {
-  //   res.status(500).send("Server error");
-  // }
+  // const transaction = await sequelize.transaction();
   try {
     const userId = req.user.id;
 
@@ -34,13 +17,16 @@ const addExpense = async (req, res) => {
     });
 
     // Calculate totalExpense
-    const totalExpense = await Expense.sum('amount', { where: { userId } });
+    const totalExpense = await Expense.sum('amount', { where: { userId }});
 
     // Update user's totalExpense
     await User.update({ totalExpense }, { where: { id: userId } });
 
+    // await transaction.commit();
+
     res.send(expense);
 } catch (error) {
+    // await transaction.rollback()
     res.status(500).send('Server error');
 }
 };
@@ -71,11 +57,13 @@ const getExpenses = async (req, res) => {
 
 const deleteExpense = async (req, res) => {
     const { expenseId } = req.params;
+    // const transaction = sequelize.transaction();
 
     try {
         const expense = await Expense.findByPk(expenseId);
 
         if (!expense) {
+            // await transaction.rollback();
             return res.status(404).json({ msg: 'Expense not found' });
         }
 
@@ -84,16 +72,19 @@ const deleteExpense = async (req, res) => {
         // Update user's totalExpense
         const user = await User.findByPk(userId);
         user.totalExpense -= expense.amount;
-        await user.save();
+        // await user.save({transaction});
 
         await expense.destroy();
 
+        // await transaction.commit();
+
         res.send('Expense deleted');
     } catch (error) {
+        // await transaction.rollback();
         res.status(500).send('Server error');
     }
 };
 
 module.exports = { addExpense, getExpenses, deleteExpense };
 
-// module.exports = { addExpense, getExpenses, deleteExpense };
+

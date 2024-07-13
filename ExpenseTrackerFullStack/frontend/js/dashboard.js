@@ -81,6 +81,9 @@ function editExpense(expense) {
   deleteExpense(expense.id);
 }
 
+
+
+
 // Event listener for the Razorpay payment button
 document.getElementById("buyPremiumBtn").addEventListener("click", async () => {
   try {
