@@ -1,3 +1,6 @@
+<!-- brevo <key -->
+<!-- xsmtpsib-9fe1e47df9f1bfe778d1c871ed917e0577ed5dc513373c5684ac8b446e63c570-K9cIaWGDXZ3L8UxJ -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -33,14 +36,49 @@
       
         <label for="password">Password</label><br />
         <input type="password" name="password" id="password" required /><br />
-        <button type="submit">Log In</button>
+        <button type="submit">Log In</button><br>
+        <button id="showForgotPasswordForm" type="button">forgot passowrd</button>
        </div>
+       
+    </form>
+
+    <form id="forgotPasswordForm" style="display: none;">
+      <div class="sign-up">
+        <h1>Forgot Password</h1>
+        <label for="forgotEmail">Email</label><br />
+        <input type="text" name="forgotEmail" id="forgotEmail" required /><br />
+        <button type="button" id="sendResetEmail">Send Reset Email</button>
+        <!-- <button type="submit">Submit</button><br> -->
+        <button id="cancelForgotPassword" type="button">Cancel</button>
+      </div>
     </form>
   </div>
 
 
   <script>
-    // 
+    document.getElementById('showForgotPasswordForm').addEventListener('click', () => {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('forgotPasswordForm').style.display = 'block';
+      });
+    
+      document.getElementById('cancelForgotPassword').addEventListener('click', () => {
+        document.getElementById('forgotPasswordForm').style.display = 'none';
+        document.getElementById('loginForm').style.display = 'block';
+      });
+
+      document.getElementById('sendResetEmail').addEventListener('click', async () => {
+        const email = document.getElementById('forgotEmail').value;
+
+        try {
+          await axios.post('http://localhost:3000/password/forgotpassword', { email });
+          alert('Password reset email sent');
+        } catch (error) {
+          console.error('Error sending reset email:', error);
+          alert('Error sending reset email');
+        }
+      });
+
+
     document.getElementById('loginForm')?.addEventListener('submit', async (event) => {
   event.preventDefault();
 
