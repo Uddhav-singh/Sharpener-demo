@@ -109,3 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem('orders', JSON.stringify(localOrders));
   }
 });
+
+let prm = new Promise((res, rej)=>{
+  res("")
+})

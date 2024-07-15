@@ -1,7 +1,35 @@
+body{
+    background-color: aqua;
+}
+
+h1{
+    text-align: center;
+    color: brown;
+}
+
+label{
+    font-size: 25px;
+    color: brown;
+}
+
+#searchDiv{
+    text-align: right;
+}
+#searchDiv h1{
+    text-align: right;
+}
+
+button{
+    font-size: large;
+    background-color: brown;
+    border-radius: 5px;
+}
+
+
 .rating {
     display: flex;
-    justify-content: center;
-    direction: ltr;
+    justify-content: left;
+    direction:rtl;
 }
 
 .rating input {
@@ -20,7 +48,15 @@
     color: gold;
 }
 
+.rating label:hover ~ label {
+    color: lightgray;
+}
+
 .rating input:checked + label,
 .rating input:checked + label ~ label {
+    color: gold;
+}
+
+.rating input:hover + label {
     color: gold;
 }

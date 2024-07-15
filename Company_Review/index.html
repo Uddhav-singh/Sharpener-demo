@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Company Review</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <h1>Add Review</h1>
@@ -16,9 +16,9 @@
       <textarea name="pros" id="pros" rows="5" cols="50"></textarea><br />
       <label for="cons">Pros:</label><br />
       <textarea name="cons" id="cons" rows="5" cols="50"></textarea><br />
-      <!-- <label for="rating">Rating:</label><br /> -->
+      <label for="rating">Rating:</label><br />
       <!-- <textarea name="rating" id="rating" rows="5" cols="50"></textarea><br /> -->
-      <div class="rating" name="rating" id="rating">
+      <div class="rating" id="rating">
         <input type="radio" id="star5" name="rating" value="5" />
         <label for="star5">&#9733;</label>
         <input type="radio" id="star4" name="rating" value="4" />
@@ -29,19 +29,19 @@
         <label for="star2">&#9733;</label>
         <input type="radio" id="star1" name="rating" value="1" />
         <label for="star1">&#9733;</label>
-    </div>
+      </div>
       <button type="submit">Submit</button>
     </form>
-    <ul id="reviewList"></ul>
+    <!-- <ul id="reviewList"></ul> -->
     <div id="searchDiv">
-    <form id="searchForm">
-        <label for="search">Search Company:</label><br>
-        <input type="text" id="search" name="search">
+      <form id="searchForm">
+        <label for="search">Search Company:</label><br />
+        <input type="text" id="search" name="search" />
         <button type="submit">Submit</button>
-    </form>
-    <h1>Company Review</h1>
-    <ul id="searchList"></ul>
-</div>
+      </form>
+      <h1>Company Review</h1>
+      <div id="searchList"></div>
+    </div>
 
     <script>
       document
@@ -52,8 +52,18 @@
           const companyName = document.getElementById("companyName").value;
           const pros = document.getElementById("pros").value;
           const cons = document.getElementById("cons").value;
-          const rating = document.getElementById("rating").value;
 
+          // -----------------------------------------------------------------------
+          // Get the selected rating value
+          const ratingElements = document.getElementsByName("rating");
+          let rating;
+          for (let i = 0; i < ratingElements.length; i++) {
+            if (ratingElements[i].checked) {
+              rating = ratingElements[i].value;
+              break;
+            }
+          }
+          // -------------------------------------------------------------------------------
           try {
             await axios.post("http://localhost:3000/reviews", {
               companyName,
@@ -61,59 +71,63 @@
               cons,
               rating,
             });
-            // loadReview();
-        //     const companyName = document.getElementById("companyName").value = '';
-        //   const pros = document.getElementById("pros").value='';
-        //   const cons = document.getElementById("cons").value='';
-        //   const rating = document.getElementById("rating").value='';
+
+            // Clear the input fields
+            document.getElementById("companyName").value = "";
+            document.getElementById("pros").value = "";
+            document.getElementById("cons").value = "";
+
+            ratingElements.forEach((el) => (el.checked = false));
           } catch (error) {
             console.log(error);
           }
         });
 
-      async function loadReview() {
-        try {
-          const response = await axios.get("http://localhost:3000/reviews");
-          const reviews = response.data;
-          const reviewList = document.getElementById("reviewList");
-          reviewList.innerHTML = "";
-          reviews.forEach(review => {
-            const listItem = document.createElement("li");
-            listItem.textContent = `${review.companyName}-${review.pros}-${review.cons}-${review.rating}`;
-            reviewList.appendChild(listItem);
-          });
-        } catch (error) {
-          console.log("error fetching from db" + error);
-        }
-      }
+      document
+        .getElementById("searchForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
 
-      document.getElementById('searchForm').addEventListener('submit', function(event){
-        event.preventDefault();
-
-        const searchCompany = document.getElementById('search').value;
-        findCompany(searchCompany);
-
-      })
-      async function findCompany(companyName){
+          const searchCompany = document.getElementById("search").value;
+          findCompany(searchCompany);
+        });
+      async function findCompany(companyName) {
         try {
           const response = await axios.get("http://localhost:3000/reviews");
           const searches = response.data;
           const searchList = document.getElementById("searchList");
           searchList.innerHTML = "";
-          searches.forEach(search => {
-            if(companyName === search.companyName){
-            const listItem = document.createElement("li");
-            listItem.textContent = `${search.companyName}-${search.pros}-${search.cons}-${search.rating}`;
-            searchList.appendChild(listItem);
+          let totalRating = 0;
+          let count = 0;
+
+          searches.forEach((search) => {
+            if (companyName === search.companyName) {
+              totalRating = totalRating + search.rating;
+              count++;
+            }
+          });
+          const avgRating = totalRating / count;
+          const ratingItem = document.createElement("h1");
+          ratingItem.innerHTML = `<div> <strong>Rating:</strong> ${avgRating} <br>`;
+          searchList.appendChild(ratingItem);
+
+          searches.forEach((search) => {
+            if (companyName === search.companyName) {
+              const listItem = document.createElement("p");
+              listItem.innerHTML = `<div>
+                                            <strong>Company Name:</strong> ${search.companyName} <br>
+                                            <strong>Pros:</strong> ${search.pros} <br>
+                                            <strong>Cons:</strong> ${search.cons}
+                                            <hr>
+                                        </div>`;
+
+              searchList.appendChild(listItem);
             }
           });
         } catch (error) {
           console.log("error fetching from db" + error);
         }
       }
-
-    //   loadReview();
-    // findCompany()
     </script>
   </body>
 </html>

@@ -1,24 +1,26 @@
 function handleFormSubmit(event) {
   event.preventDefault();
   const noteDetails = {
-    date: Date.now(),
+    // date: Date.now(),
     title: event.target.title.value,
     description: event.target.description.value,
-    //   phone: event.target.phone.value,
   };
-  
+
   axios
     .post(
-      "https://crudcrud.com/api/bddf7fbdab7e4928b06dd7bc7e76a498/noteDetails",
+      "https://crudcrud.com/api/9628b8ad0cc24365bb1baa3fb3b90302/noteBook",
       noteDetails
     )
-    .then((response) => displayNoteOnScreen(response.data))
-    .catch((error) => console.log(error));
+    .then((response) => {displayNoteOnScreen(response.data);
+    // saveNotesToLocalStorage(); // Call the function to save notes to local storage
+    }
+  )
+    .catch((error) => console.log(error))
 
   // Clearing the input fields
   document.getElementById("title").value = "";
   document.getElementById("description").value = "";
-  // document.getElementById("phone").value = "";
+  
 }
 
 function displayNoteOnScreen(noteDetails) {
@@ -50,7 +52,7 @@ function displayNoteOnScreen(noteDetails) {
     // For example:
     axios
       .delete(
-        `https://crudcrud.com/api/bddf7fbdab7e4928b06dd7bc7e76a498/noteDetails/${noteDetails.date}`
+        `https://crudcrud.com/api/d1dfed4c615e451097a2a8ee37016ee7/noteBook/${noteDetails.date}`
       )
       .then((response) => {
         console.log("Note deleted successfully");
@@ -62,53 +64,55 @@ function displayNoteOnScreen(noteDetails) {
 }
 // Function to save notes to localStorage
 function saveNotesToLocalStorage(notes) {
-    localStorage.setItem("notes", JSON.stringify(notes));
-  }
-  
-  // Function to load notes from localStorage
-  function loadNotesFromLocalStorage() {
-    const notes = JSON.parse(localStorage.getItem("notes")) || [];
-    notes.forEach(note => {
-      displayNoteOnScreen(note);
-    });
-    return notes;
-  }
-  
-  // Retrieve notes from localStorage when the page loads
-  document.addEventListener("DOMContentLoaded", () => {
-    loadNotesFromLocalStorage();
+  localStorage.setItem("notes", JSON.stringify(notes));
+}
+
+// Function to load notes from localStorage
+function loadNotesFromLocalStorage() {
+  const notes = JSON.parse(localStorage.getItem("notes")) || [];
+  notes.forEach((note) => {
+    displayNoteOnScreen(note);
   });
+  return notes;
+}
 
+// Retrieve notes from localStorage when the page loads
+document.addEventListener("DOMContentLoaded", () => {
+  loadNotesFromLocalStorage();
+});
 
-// For searching the notes 
+// For searching the notes
 function searchNotes() {
-    const searchTerm = document.getElementById("search").value.toLowerCase();
-    const notes = document.querySelectorAll("#noteList li");
+  const searchTerm = document.getElementById("search").value.toLowerCase();
+  const notes = document.querySelectorAll("#noteList li");
 
-    let totalNotes = 0;
+  let totalNotes = 0;
   let matchingNotes = 0;
-  
-    notes.forEach(note => {
-      const title = note.querySelector("strong").textContent.toLowerCase();
-      const description = note.textContent.toLowerCase();
-      if (title.includes(searchTerm) || description.includes(searchTerm)) {
-        note.style.display = "block";
-        matchingNotes++;
-      } else {
-        note.style.display = "none";
-      }
-      totalNotes++;
-    });
-    // Update total notes count
-    document.querySelector('p:nth-of-type(1)').textContent = `Total Notes: ${totalNotes}`;
 
-    // Update showing count
-    document.querySelector('p:nth-of-type(2)').textContent = `Showing: ${matchingNotes}`;
-  }
-  
-  // Attach event listener to search input for real-time search
-  document.getElementById("search").addEventListener("input", searchNotes);
-  
+  notes.forEach((note) => {
+    const title = note.querySelector("strong").textContent.toLowerCase();
+    const description = note.textContent.toLowerCase();
+    if (title.includes(searchTerm) || description.includes(searchTerm)) {
+      note.style.display = "block";
+      matchingNotes++;
+    } else {
+      note.style.display = "none";
+    }
+    totalNotes++;
+  });
+  // Update total notes count
+  document.querySelector(
+    "p:nth-of-type(1)"
+  ).textContent = `Total Notes: ${totalNotes}`;
+
+  // Update showing count
+  document.querySelector(
+    "p:nth-of-type(2)"
+  ).textContent = `Showing: ${matchingNotes}`;
+}
+
+// Attach event listener to search input for real-time search
+document.getElementById("search").addEventListener("input", searchNotes);
 
 // Do not touch code below
 module.exports = {

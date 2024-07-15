@@ -15,6 +15,7 @@ app.post('/reviews', async(req,res)=>{
     try{
         const review = await Review.create({companyName, pros, cons, rating});
         res.json();
+        
         // console.log(res)
     }catch(error){
         res.status(500).json({error:error.message});
@@ -25,6 +26,7 @@ app.get('/reviews', async(req, res)=>{
     try{
         const review = await Review.findAll()
         res.json(review)
+    
     } catch (error){
         res.status(500).json({error:error.message});
     }
