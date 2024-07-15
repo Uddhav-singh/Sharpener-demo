@@ -6,6 +6,10 @@ const User = require("./models/user");
 const Expense = require("./models/expense");
 const sequelize = require("./config/userdb");
 
+
+require('dotenv').config();
+
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
