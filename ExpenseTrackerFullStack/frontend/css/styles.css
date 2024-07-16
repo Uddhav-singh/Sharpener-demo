@@ -2,12 +2,12 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: lightblue;
+  background-color: #F3E5AB;
   /* background-image: url('../images/expense-tracker.png'); */
 }
 
 header {
-  background-color: rgb(53, 164, 201);
+  background-color: #006D5B;
   color: #fff;
 }
 
