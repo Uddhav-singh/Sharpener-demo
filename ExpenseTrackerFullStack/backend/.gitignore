@@ -1,6 +1,6 @@
 .env
 # Ignore .env file
-/ExpenseTrackerFullStack/backend/.env
+backend/.env
 
 
 # Node modules
