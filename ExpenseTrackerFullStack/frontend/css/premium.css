@@ -1,0 +1,56 @@
+/* #006D5B-teal green;  #F3E5AB-vanilla white    */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F3E5AB;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.filter-options {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.filter-options button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #006D5B;
+    color: #F3E5AB;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+
+.data-display {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    min-height: 200px;
+}
+
+#downloadBtn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    cursor: not-allowed;
+    background-color: #006D5B;
+    color: #fff;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}

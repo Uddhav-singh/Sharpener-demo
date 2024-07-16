@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium User Dashboard</title>
+    <link rel="stylesheet" href="../css/premium.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Expense Income tracker</h1>
+        <div class="filter-options">
+            <button onclick="filterData('daily')">Daily</button>
+            <button onclick="filterData('weekly')">Weekly</button>
+            <button onclick="filterData('monthly')">Monthly</button>
+        </div>
+        <div class="data-display" id="data-display">
+            <!-- Data will be displayed here -->
+        </div>
+        <button id="downloadBtn" onclick="downloadData()" disabled>Download Expenses</button>
+    </div>
+
+    <script src="../js/premium.js"></script>
+</body>
+</html>
