@@ -1,7 +1,6 @@
-.env
 # Ignore .env file
 backend/.env
 
 
 # Node modules
-# /node_modules
+backend/node_modules
